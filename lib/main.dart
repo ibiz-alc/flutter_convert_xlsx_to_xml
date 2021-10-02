@@ -68,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final textEditController2 = TextEditingController();
 
   bool success = false;
+  bool isLog = true;
 
   @override
   void initState() {
@@ -146,6 +147,19 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          Center(child: Text("Log")),
+          Switch(
+            value: isLog,
+            onChanged: (value) {
+              setState(() {
+                isLog = value;
+              });
+            },
+            activeTrackColor: Colors.lightBlueAccent,
+            activeColor: Colors.blue,
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -215,46 +229,44 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            Expanded(
-              child: Visibility(
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                visible: success,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Text(
-                              textEditController1.text
+            if (isLog)
+              Expanded(
+                child: Visibility(
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  visible: success,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Text(textEditController1.text),
+                            // child: TextField(
+                            //   controller: textEditController1,
+                            //   keyboardType: TextInputType.multiline,
+                            //   maxLines: null,
+                            // ),
                           ),
-                          // child: TextField(
-                          //   controller: textEditController1,
-                          //   keyboardType: TextInputType.multiline,
-                          //   maxLines: null,
-                          // ),
                         ),
-                      ),
-                      SizedBox(width: 20),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Text(
-                              textEditController2.text
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Text(textEditController2.text),
+                            // child: TextField(
+                            //   controller: textEditController2,
+                            //   keyboardType: TextInputType.multiline,
+                            //   maxLines: null,
+                            // ),
                           ),
-                          // child: TextField(
-                          //   controller: textEditController2,
-                          //   keyboardType: TextInputType.multiline,
-                          //   maxLines: null,
-                          // ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
+            if (!isLog) Spacer()
           ],
         ),
       ),
