@@ -9,8 +9,6 @@ import 'package:html_unescape/html_unescape.dart';
 import 'package:xml/xml.dart';
 import 'package:oktoast/oktoast.dart';
 
-import 'file_picker_demo.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
