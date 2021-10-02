@@ -224,11 +224,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void _clipboardCopy(String value) {
     FlutterClipboard.copy(value).then((value) {
       showToast(
-        'copied',
+        'copied...',
         position: ToastPosition.bottom,
         backgroundColor: Colors.black.withOpacity(0.8),
-        radius: 13.0,
-        textStyle: const TextStyle(fontSize: 18.0),
+        radius: 12.0,
+        textStyle: Theme.of(context)
+          .textTheme
+          .headline3!
+          .merge(TextStyle(color: Colors.white)),
         animationBuilder: const Miui10AnimBuilder(),
       );
     });
