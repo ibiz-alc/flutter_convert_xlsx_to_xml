@@ -64,6 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
   final builderSlot1 = XmlBuilder();
   final builderSlot2 = XmlBuilder();
 
+  final textEditController1 = TextEditingController();
+  final textEditController2 = TextEditingController();
+
   bool success = false;
 
   @override
@@ -81,9 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
         progress: 0.0,
         maxProgress: 100.0,
         progressTextStyle:
-        TextStyle(color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+            TextStyle(color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
         messageTextStyle:
-        TextStyle(color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600));
+            TextStyle(color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600));
   }
 
   void _filePicker() async {
@@ -106,6 +109,9 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
     pr?.hide();
+
+    textEditController1.text = builderSlot1.buildDocument().toXmlString(pretty: true);
+    textEditController2.text = builderSlot2.buildDocument().toXmlString(pretty: true);
   }
 
   void _convertToXml(XmlBuilder builder, Excel excel, {bool slot1 = true}) {
@@ -120,8 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
             if (index > 0 && row[0]?.value != null && row[column]?.value != null) {
               builder.element('string', nest: () {
                 builder.attribute('name',
-                    '${table.toLowerCase().replaceAll(" ", "_")}_${row[0]?.value.toLowerCase()
-                        .replaceAll(" ", "_")}');
+                    '${table.toLowerCase().replaceAll(" ", "_")}_${row[0]?.value.toLowerCase().replaceAll(" ", "_")}');
                 String? value = row[column]?.value?.toString();
                 var unescape = HtmlUnescape();
                 builder.text(unescape.convert(value!));
@@ -144,7 +149,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             RaisedButton(
@@ -153,15 +157,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.all(20),
                 child: Text(
                   'Upload file to convert...',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(color: Colors.black),
+                  style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black),
                 ),
               ),
             ),
-            SizedBox(height: 100,),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               height: 200,
               child: Row(
@@ -187,7 +189,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 50,),
+                  SizedBox(
+                    width: 50,
+                  ),
                   Visibility(
                     maintainSize: true,
                     maintainAnimation: true,
@@ -211,6 +215,46 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
+            Expanded(
+              child: Visibility(
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+                visible: success,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Text(
+                              textEditController1.text
+                          ),
+                          // child: TextField(
+                          //   controller: textEditController1,
+                          //   keyboardType: TextInputType.multiline,
+                          //   maxLines: null,
+                          // ),
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Text(
+                              textEditController2.text
+                          ),
+                          // child: TextField(
+                          //   controller: textEditController2,
+                          //   keyboardType: TextInputType.multiline,
+                          //   maxLines: null,
+                          // ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -224,10 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
         position: ToastPosition.bottom,
         backgroundColor: Colors.black.withOpacity(0.8),
         radius: 12.0,
-        textStyle: Theme.of(context)
-          .textTheme
-          .headline3!
-          .merge(TextStyle(color: Colors.white)),
+        textStyle: Theme.of(context).textTheme.headline3!.merge(TextStyle(color: Colors.white)),
         animationBuilder: const Miui10AnimBuilder(),
       );
     });
