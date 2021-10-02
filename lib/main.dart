@@ -4,7 +4,6 @@ import 'package:clipboard/clipboard.dart';
 import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:flutter_convert_xlsx/progress_dialog.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:xml/xml.dart';
@@ -14,7 +13,6 @@ import 'file_picker_demo.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await firebase_core.Firebase.initializeApp();
   runApp(MyApp());
   // runApp(FilePickerDemo());
 }
