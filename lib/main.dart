@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter converter',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
@@ -178,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: RaisedButton(
                       color: Colors.blue,
                       onPressed: () {
-                        _clipboardCopy(builderSlot1.buildDocument().toXmlString(pretty: true));
+                        _clipboardCopy(textEditController1.text);
                       },
                       child: Container(
                         padding: EdgeInsets.all(20),
@@ -200,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: RaisedButton(
                       color: Colors.blue,
                       onPressed: () {
-                        _clipboardCopy(builderSlot2.buildDocument().toXmlString(pretty: true));
+                        _clipboardCopy(textEditController2.text);
                       },
                       child: Container(
                         padding: EdgeInsets.all(20),
