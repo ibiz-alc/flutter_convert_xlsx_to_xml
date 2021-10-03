@@ -129,8 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 builder.attribute('name',
                     '${table.toLowerCase().replaceAll(" ", "_")}_${row[0]?.value.toLowerCase().replaceAll(" ", "_")}');
                 String? value = row[column]?.value?.toString();
-                var unescape = HtmlUnescape();
-                builder.text(unescape.convert(value!));
+                builder.text(value!.replaceAll('-', '&#8211;').replaceAll('\'', '\\'''));
               });
             }
             index += 1;
@@ -236,32 +235,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   maintainAnimation: true,
                   maintainState: true,
                   visible: success,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Text(textEditController1.text),
-                            // child: TextField(
-                            //   controller: textEditController1,
-                            //   keyboardType: TextInputType.multiline,
-                            //   maxLines: null,
-                            // ),
-                          ),
-                        ),
-                        SizedBox(width: 20),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Text(textEditController2.text),
-                            // child: TextField(
-                            //   controller: textEditController2,
-                            //   keyboardType: TextInputType.multiline,
-                            //   maxLines: null,
-                            // ),
-                          ),
-                        ),
-                      ],
+                  child: SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(child: Text(textEditController1.text)),
+                          SizedBox(width: 20),
+                          Expanded(child: Text(textEditController2.text)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
