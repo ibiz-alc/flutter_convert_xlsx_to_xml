@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
             if (index > 0 && row[0]?.value != null && row[column]?.value != null) {
               builder.element('string', nest: () {
                 builder.attribute('name',
-                    '${table.toLowerCase().replaceAll(" ", "_")}_${row[0]?.value.toLowerCase().replaceAll(" ", "_")}');
+                    '${table.toLowerCase().trim().replaceAll(" ", "_")}_${row[0]?.value.toLowerCase().replaceAll(" ", "_")}');
                 String? value = row[column]?.value?.toString();
                 builder.text(value!.replaceAll('-', '&#8211;').replaceAll('\'', '\\'''));
               });
