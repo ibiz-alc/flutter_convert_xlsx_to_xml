@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 builder.attribute('name',
                     '${table.toLowerCase().trim().replaceAll(" ", "_")}_${row[0]?.value.toLowerCase().replaceAll(" ", "_")}');
                 String? value = row[column]?.value?.toString();
-                builder.text(value!.replaceAll('-', '&#8211;').replaceAll("'", "\\\'").trim());
+                builder.text(value!.replaceAll("'", "\\\'").trim());
               });
             }
             index += 1;
